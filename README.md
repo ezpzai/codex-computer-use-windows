@@ -15,61 +15,84 @@
   <b><a href="README.ko.md">한국어</a></b>
 </p>
 
-> MCP server that gives Codex full control over the Windows desktop — screenshots, mouse, keyboard, Chrome browser, chat apps, and more.
+> Windows desktop control for Codex through a local MCP server: screenshots, mouse, keyboard, Chrome, chat apps, and more.
 
 ---
 
 ## Overview
 
-An MCP (Model Context Protocol) server plugin for [OpenAI Codex](https://github.com/openai/codex). Control the entire Windows desktop through natural language: take screenshots, click, type, manage windows, search the web via Chrome, and send messages to chat apps — many operations work without screenshots at all.
+This repository is meant to be installed as a Codex plugin package.
+
+It already contains plugin metadata in [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json), bundled MCP config in [`.mcp.json`](.mcp.json), and skills in [`skills/`](skills/).
 
 ---
 
-## Quick Start
+## Install
 
-### Prerequisites
+Requirements:
 
-- **Windows 10/11** (interactive desktop session)
-- **Python 3.10+** with `py` launcher
-- **Codex** CLI or desktop app
+- Windows 10/11
+- Python 3.10+ with the `py` launcher
+- Codex desktop app
 
-### Install & Add to Codex
+### Method 1. 
+## (Automatic) For AI Agent
+
+Copy this into Codex app chat:
+
+```text
+Clone https://github.com/ezpzai/codex-computer-use-windows into $HOME\.codex\plugins\computer-use-windows, then add a local plugin entry in ~/.agents/plugins/marketplace.json that points to ./.codex/plugins/computer-use-windows.
+```
+
+After installation, restart Codex,
+then install `computer-use-windows` from Codex app `Plugins > Local Plugins`.
+
+![plugins.png](assets/plugins.png)
+
+This repository already includes the files Codex expects:
+
+- [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json)
+- [`.mcp.json`](.mcp.json)
+- [`skills/computer-use-windows/SKILL.md`](skills/computer-use-windows/SKILL.md)
+
+### Method 2. 
+## (Manual) 1. Clone into your local plugins folder
+
+Run this in PowerShell:
 
 ```powershell
-# Step 1: Clone to a fixed location
-git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
-
-# Step 2: Register as MCP server (Codex CLI)
-codex mcp add computer-use -- cmd.exe /d /s /c "%USERPROFILE%\codex-computer-use-windows\scripts\launch-windows.cmd"
+git clone https://github.com/ezpzai/codex-computer-use-windows.git "$HOME\.codex\plugins\computer-use-windows"
 ```
 
-First run automatically creates a venv and installs all dependencies.
+### 2. Add one local marketplace entry
 
-> This writes the following entry to `~/.codex/config.toml`:
-> ```toml
-> [mcp_servers.computer-use]
-> command = "cmd.exe"
-> args = ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"]
-> ```
+Create or update `~/.agents/plugins/marketplace.json`:
 
-### Manual config.toml
-
-If you prefer to edit directly, add to `~/.codex/config.toml`:
-
-```toml
-[mcp_servers.computer-use]
-command = "cmd.exe"
-args = ["/d", "/s", "/c", "C:\\Users\\YOUR_USERNAME\\codex-computer-use-windows\\scripts\\launch-windows.cmd"]
+```json
+{
+  "name": "local-plugins",
+  "plugins": [
+    {
+      "name": "computer-use-windows",
+      "source": {
+        "source": "local",
+        "path": "./.codex/plugins/computer-use-windows"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
 ```
 
-### Standalone Server
+### 3. Restart Codex and install the plugin
 
-```powershell
-cd %USERPROFILE%\codex-computer-use-windows
-py -3 -m venv .venv
-.venv\Scripts\python.exe -m pip install -r scripts\requirements.txt
-.venv\Scripts\python.exe scripts\windows_server.py
-```
+Open `Plugins > Local Plugins`, then install `computer-use-windows`.
+
+Codex reads the bundled `.mcp.json` and `skills/` automatically.
 
 ---
 
@@ -77,71 +100,27 @@ py -3 -m venv .venv
 
 | Category | Tools |
 |---|---|
-| **Screen** | `screenshot` · `screenshot_active_window` · `observe_screen` · `get_screen_size` · `get_cursor_position` · `extract_text` · `extract_text_active_window` |
-| **Mouse & Keyboard** | `click` · `move_mouse` · `drag_mouse` · `type_text` · `type_unicode` · `press_key` · `hotkey` · `scroll` |
-| **Window** | `list_windows` · `focus_window` · `run_program` · `open_app` · `get_window_text` |
-| **Clipboard** | `get_clipboard` · `set_clipboard` |
-| **Chrome** | `chrome_get_url` · `chrome_get_tab_title` · `chrome_navigate` · `chrome_search` · `chrome_read_page` |
-| **Chat / Messaging** | `send_text_to_window` · `send_keys_to_window` |
-| **UI Automation** | `get_ui_tree` · `find_and_click_element` |
-| **Utility** | `batch_actions` · `wait` |
+| Screen | `screenshot`, `screenshot_active_window`, `observe_screen`, `get_screen_size`, `get_cursor_position`, `extract_text`, `extract_text_active_window` |
+| Mouse and Keyboard | `click`, `move_mouse`, `drag_mouse`, `type_text`, `type_unicode`, `press_key`, `hotkey`, `scroll` |
+| Window | `list_windows`, `focus_window`, `run_program`, `open_app`, `get_window_text` |
+| Clipboard | `get_clipboard`, `set_clipboard` |
+| Chrome | `chrome_get_url`, `chrome_get_tab_title`, `chrome_navigate`, `chrome_search`, `chrome_read_page` |
+| Chat and Messaging | `send_text_to_window`, `send_keys_to_window` |
+| UI Automation | `get_ui_tree`, `find_and_click_element` |
+| Utility | `batch_actions`, `wait` |
 
 ---
 
-## For AI Agents
+## Notes
 
-Copy this into your agent's system prompt, `AGENTS.md`, or `.instructions.md` to let it install and use this tool:
-
-````markdown
-## Computer Use (Windows) — Setup & Usage
-
-Install the MCP server for Windows desktop control:
-
-```bash
-git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
-codex mcp add computer-use -- cmd.exe /d /s /c "%USERPROFILE%\codex-computer-use-windows\scripts\launch-windows.cmd"
-```
-
-Then add the skill registration below.
-
-### Skill Registration
-
-```xml
-<skills>
-<skill>
-  <name>computer-use-windows</name>
-  <description>Windows desktop control — screenshots, mouse, keyboard, Chrome, chat apps, UI Automation</description>
-  <file>skills/computer-use-windows/SKILL.md</file>
-</skill>
-</skills>
-```
-
-### Available Actions
-
-- **Web search (no screenshot):** `chrome_search(query="...", engine="naver|google|daum|bing")`
-- **Read page text:** `chrome_read_page()`
-- **Get current URL:** `chrome_get_url()`
-- **Navigate:** `chrome_navigate(url="https://...")`
-- **Send chat message:** `send_keys_to_window(title="KakaoTalk", text="hello", send_enter=True)`
-- **Open app:** `open_app("notepad|chrome|kakaotalk|calculator|...")`
-- **Observe (no screenshot):** `observe_screen(include_screenshot=False, include_ui_tree=True)`
-- **Type Unicode:** `type_unicode("한글 텍스트")`
-- **Read window text:** `get_window_text(title="Notepad")`
-````
-
----
-
-## Limitations
-
-- Interactive desktop session only (no headless / RDP shadow)
+- Works only on an interactive desktop session
 - Cannot control elevated UAC prompts or the secure desktop
-- Chrome-specific tools target Google Chrome (Edge/Firefox: use `open_app` only)
-
----
+- Chrome-specific tools target Google Chrome
+- `uiautomation` is installed automatically on first use if needed
 
 ## Contributing
 
-Issues and PRs welcome at [github.com/ezpzai/codex-computer-use-windows](https://github.com/ezpzai/codex-computer-use-windows).
+Issues and PRs are welcome at [github.com/ezpzai/codex-computer-use-windows](https://github.com/ezpzai/codex-computer-use-windows).
 
 ## License
 
