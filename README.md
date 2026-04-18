@@ -35,36 +35,32 @@ An MCP (Model Context Protocol) server plugin for [OpenAI Codex](https://github.
 
 ### Install & Add to Codex
 
-```bash
-# Clone the repo
-git clone https://github.com/ezpzai/codex-computer-use-windows.git
+**Step 1.** Clone to a fixed location (pick any path you like):
 
-# Add to Codex as MCP server
-codex mcp add computer-use -- cmd.exe /d /s /c "path\to\codex-computer-use-windows\scripts\launch-windows.cmd mcp"
+```powershell
+git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
 ```
 
-First run automatically creates a venv and installs all dependencies.
-
-### Manual MCP Config
-
-Add to your MCP client config (Codex `mcp.json`, Claude Desktop, etc.):
+**Step 2.** Add to your Codex / MCP client config file (`~/.codex/mcp.json` or equivalent). Replace the path with your actual clone location:
 
 ```json
 {
   "mcpServers": {
     "computer-use-windows": {
       "command": "cmd.exe",
-      "args": ["/d", "/s", "/c", ".\\scripts\\launch-windows.cmd mcp"],
-      "cwd": "C:\\path\\to\\codex-computer-use-windows"
+      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
+      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
     }
   }
 }
 ```
 
+First run automatically creates a venv and installs all dependencies.
+
 ### Standalone Server
 
-```bash
-cd codex-computer-use-windows
+```powershell
+cd %USERPROFILE%\codex-computer-use-windows
 py -3 -m venv .venv
 .venv\Scripts\python.exe -m pip install -r scripts\requirements.txt
 .venv\Scripts\python.exe scripts\windows_server.py
@@ -97,8 +93,21 @@ Copy this into your agent's system prompt, `AGENTS.md`, or `.instructions.md` to
 Install the MCP server for Windows desktop control:
 
 ```bash
-git clone https://github.com/ezpzai/codex-computer-use-windows.git
-codex mcp add computer-use -- cmd.exe /d /s /c "path\to\codex-computer-use-windows\scripts\launch-windows.cmd mcp"
+git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
+```
+
+Then add to the MCP config (`~/.codex/mcp.json` or equivalent):
+
+```json
+{
+  "mcpServers": {
+    "computer-use-windows": {
+      "command": "cmd.exe",
+      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
+      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
+    }
+  }
+}
 ```
 
 ### Skill Registration

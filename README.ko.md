@@ -35,36 +35,32 @@
 
 ### 설치 및 Codex에 추가
 
-```bash
-# 레포 클론
-git clone https://github.com/ezpzai/codex-computer-use-windows.git
+**Step 1.** 원하는 위치에 클론합니다:
 
-# Codex에 MCP 서버로 추가
-codex mcp add computer-use -- cmd.exe /d /s /c "path\to\codex-computer-use-windows\scripts\launch-windows.cmd mcp"
+```powershell
+git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
 ```
 
-처음 실행하면 자동으로 가상환경을 만들고 의존성을 설치합니다.
-
-### MCP 설정 파일로 추가
-
-MCP 클라이언트 설정(Codex `mcp.json`, Claude Desktop 등)에 직접 추가할 수도 있습니다:
+**Step 2.** Codex / MCP 클라이언트 설정 파일(`~/.codex/mcp.json` 등)을 직접 편집합니다. 경로는 실제 클론 위치로 바꿔주세요:
 
 ```json
 {
   "mcpServers": {
     "computer-use-windows": {
       "command": "cmd.exe",
-      "args": ["/d", "/s", "/c", ".\\scripts\\launch-windows.cmd mcp"],
-      "cwd": "C:\\path\\to\\codex-computer-use-windows"
+      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
+      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
     }
   }
 }
 ```
 
+처음 실행하면 자동으로 가상환경을 만들고 의존성을 설치합니다.
+
 ### 독립 서버로 실행
 
-```bash
-cd codex-computer-use-windows
+```powershell
+cd %USERPROFILE%\codex-computer-use-windows
 py -3 -m venv .venv
 .venv\Scripts\python.exe -m pip install -r scripts\requirements.txt
 .venv\Scripts\python.exe scripts\windows_server.py
@@ -97,8 +93,21 @@ py -3 -m venv .venv
 Windows 데스크탑 제어용 MCP 서버를 설치합니다:
 
 ```bash
-git clone https://github.com/ezpzai/codex-computer-use-windows.git
-codex mcp add computer-use -- cmd.exe /d /s /c "path\to\codex-computer-use-windows\scripts\launch-windows.cmd mcp"
+git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
+```
+
+그리고 MCP 설정 파일(`~/.codex/mcp.json` 등)에 추가합니다:
+
+```json
+{
+  "mcpServers": {
+    "computer-use-windows": {
+      "command": "cmd.exe",
+      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
+      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
+    }
+  }
+}
 ```
 
 ### 스킬 등록
