@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "computer-use-windows": {
+      "command": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        ".\\scripts\\launch-windows.cmd mcp"
+      ],
+      "cwd": "."
+    }
+  }
+}

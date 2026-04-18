@@ -1,0 +1,39 @@
+{
+  "name": "computer-use-windows",
+  "version": "0.1.0",
+  "description": "Control desktop apps on Windows from Codex through a local MCP server.",
+  "author": {
+    "name": "codex-computer-use-windows"
+  },
+  "homepage": "https://github.com/ezpzai/codex-computer-use-windows",
+  "repository": "https://github.com/ezpzai/codex-computer-use-windows",
+  "license": "MIT",
+  "keywords": [
+    "computer-use",
+    "windows",
+    "desktop-control",
+    "automation"
+  ],
+  "mcpServers": "./.mcp.json",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Computer Use",
+    "shortDescription": "Control Windows apps from Codex",
+    "longDescription": "Windows Computer Use lets Codex inspect your desktop with screenshots and drive the mouse and keyboard through a local MCP server. It works on the interactive desktop only and cannot control elevated UAC prompts or the secure desktop.",
+    "developerName": "OpenAI Community Rebuild",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/ezpzai/codex-computer-use-windows",
+    "brandColor": "#0F172A",
+    "defaultPrompt": [
+      "Use Computer Use to inspect the current desktop and tell me what is on screen.",
+      "Use Computer Use to click through the current app and report what changed.",
+      "Use Computer Use to fill a form in the active window."
+    ],
+    "screenshots": []
+  }
+}
