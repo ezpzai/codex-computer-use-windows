@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E3A5F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#38BDF8" />
+      <stop offset="100%" style="stop-color:#818CF8" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="200" rx="16" fill="url(#bg)"/>
+  <!-- Monitor icon -->
+  <rect x="40" y="40" width="100" height="75" rx="8" stroke="url(#accent)" stroke-width="3" fill="none"/>
+  <rect x="55" y="52" width="70" height="48" rx="4" fill="#1E293B"/>
+  <rect x="75" y="118" width="30" height="8" rx="2" fill="url(#accent)"/>
+  <rect x="65" y="128" width="50" height="4" rx="2" fill="url(#accent)" opacity="0.5"/>
+  <!-- Cursor arrow -->
+  <polygon points="105,80 115,100 108,97 105,108 100,106 103,95 96,92" fill="#38BDF8"/>
+  <!-- Window elements inside monitor -->
+  <rect x="60" y="57" width="20" height="3" rx="1" fill="#38BDF8" opacity="0.7"/>
+  <rect x="60" y="63" width="60" height="2" rx="1" fill="#64748B"/>
+  <rect x="60" y="68" width="45" height="2" rx="1" fill="#64748B"/>
+  <rect x="60" y="73" width="55" height="2" rx="1" fill="#64748B"/>
+  <rect x="60" y="80" width="35" height="2" rx="1" fill="#64748B"/>
+  <!-- Title -->
+  <text x="170" y="78" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="white">codex-computer-use</text>
+  <text x="170" y="118" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="url(#accent)">-windows</text>
+  <!-- Subtitle -->
+  <text x="170" y="152" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#94A3B8">MCP Server · Windows Desktop Automation · Chrome · Unicode · Chat Apps</text>
+  <!-- Feature pills -->
+  <rect x="40" y="170" width="60" height="20" rx="10" fill="#38BDF8" opacity="0.15"/>
+  <text x="70" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#38BDF8" text-anchor="middle">Screen</text>
+  <rect x="110" y="170" width="70" height="20" rx="10" fill="#818CF8" opacity="0.15"/>
+  <text x="145" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#818CF8" text-anchor="middle">Keyboard</text>
+  <rect x="190" y="170" width="65" height="20" rx="10" fill="#38BDF8" opacity="0.15"/>
+  <text x="222" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#38BDF8" text-anchor="middle">Chrome</text>
+  <rect x="265" y="170" width="70" height="20" rx="10" fill="#818CF8" opacity="0.15"/>
+  <text x="300" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#818CF8" text-anchor="middle">Unicode</text>
+  <rect x="345" y="170" width="55" height="20" rx="10" fill="#38BDF8" opacity="0.15"/>
+  <text x="372" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#38BDF8" text-anchor="middle">Chat</text>
+  <rect x="410" y="170" width="45" height="20" rx="10" fill="#818CF8" opacity="0.15"/>
+  <text x="432" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#818CF8" text-anchor="middle">OCR</text>
+  <rect x="465" y="170" width="80" height="20" rx="10" fill="#38BDF8" opacity="0.15"/>
+  <text x="505" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#38BDF8" text-anchor="middle">UI Automation</text>
+</svg>
