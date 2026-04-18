@@ -35,27 +35,32 @@ An MCP (Model Context Protocol) server plugin for [OpenAI Codex](https://github.
 
 ### Install & Add to Codex
 
-**Step 1.** Clone to a fixed location (pick any path you like):
-
 ```powershell
+# Step 1: Clone to a fixed location
 git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
-```
 
-**Step 2.** Add to your Codex / MCP client config file (`~/.codex/mcp.json` or equivalent). Replace the path with your actual clone location:
-
-```json
-{
-  "mcpServers": {
-    "computer-use-windows": {
-      "command": "cmd.exe",
-      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
-      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
-    }
-  }
-}
+# Step 2: Register as MCP server (Codex CLI)
+codex mcp add computer-use -- cmd.exe /d /s /c "%USERPROFILE%\codex-computer-use-windows\scripts\launch-windows.cmd"
 ```
 
 First run automatically creates a venv and installs all dependencies.
+
+> This writes the following entry to `~/.codex/config.toml`:
+> ```toml
+> [mcp_servers.computer-use]
+> command = "cmd.exe"
+> args = ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"]
+> ```
+
+### Manual config.toml
+
+If you prefer to edit directly, add to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.computer-use]
+command = "cmd.exe"
+args = ["/d", "/s", "/c", "C:\\Users\\YOUR_USERNAME\\codex-computer-use-windows\\scripts\\launch-windows.cmd"]
+```
 
 ### Standalone Server
 
@@ -94,21 +99,10 @@ Install the MCP server for Windows desktop control:
 
 ```bash
 git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
+codex mcp add computer-use -- cmd.exe /d /s /c "%USERPROFILE%\codex-computer-use-windows\scripts\launch-windows.cmd"
 ```
 
-Then add to the MCP config (`~/.codex/mcp.json` or equivalent):
-
-```json
-{
-  "mcpServers": {
-    "computer-use-windows": {
-      "command": "cmd.exe",
-      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
-      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
-    }
-  }
-}
-```
+Then add the skill registration below.
 
 ### Skill Registration
 

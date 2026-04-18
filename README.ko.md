@@ -35,27 +35,32 @@
 
 ### 설치 및 Codex에 추가
 
-**Step 1.** 원하는 위치에 클론합니다:
-
 ```powershell
+# Step 1: 원하는 위치에 클론
 git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
-```
 
-**Step 2.** Codex / MCP 클라이언트 설정 파일(`~/.codex/mcp.json` 등)을 직접 편집합니다. 경로는 실제 클론 위치로 바꿔주세요:
-
-```json
-{
-  "mcpServers": {
-    "computer-use-windows": {
-      "command": "cmd.exe",
-      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
-      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
-    }
-  }
-}
+# Step 2: MCP 서버로 등록 (Codex CLI)
+codex mcp add computer-use -- cmd.exe /d /s /c "%USERPROFILE%\codex-computer-use-windows\scripts\launch-windows.cmd"
 ```
 
 처음 실행하면 자동으로 가상환경을 만들고 의존성을 설치합니다.
+
+> 위 명령은 `~/.codex/config.toml`에 다음 내용을 자동으로 저장합니다:
+> ```toml
+> [mcp_servers.computer-use]
+> command = "cmd.exe"
+> args = ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"]
+> ```
+
+### config.toml 직접 편집
+
+`~/.codex/config.toml`에 직접 추가할 수도 있습니다:
+
+```toml
+[mcp_servers.computer-use]
+command = "cmd.exe"
+args = ["/d", "/s", "/c", "C:\\Users\\사용자명\\codex-computer-use-windows\\scripts\\launch-windows.cmd"]
+```
 
 ### 독립 서버로 실행
 
@@ -94,21 +99,10 @@ Windows 데스크탑 제어용 MCP 서버를 설치합니다:
 
 ```bash
 git clone https://github.com/ezpzai/codex-computer-use-windows.git %USERPROFILE%\codex-computer-use-windows
+codex mcp add computer-use -- cmd.exe /d /s /c "%USERPROFILE%\codex-computer-use-windows\scripts\launch-windows.cmd"
 ```
 
-그리고 MCP 설정 파일(`~/.codex/mcp.json` 등)에 추가합니다:
-
-```json
-{
-  "mcpServers": {
-    "computer-use-windows": {
-      "command": "cmd.exe",
-      "args": ["/d", "/s", "/c", "%USERPROFILE%\\codex-computer-use-windows\\scripts\\launch-windows.cmd"],
-      "cwd": "%USERPROFILE%\\codex-computer-use-windows"
-    }
-  }
-}
-```
+그리고 아래 스킬 등록도 추가합니다.
 
 ### 스킬 등록
 
